@@ -1,3 +1,1 @@
-# REST Countries API
-
-## 👉🏻 What it does
+# REST Countries API
