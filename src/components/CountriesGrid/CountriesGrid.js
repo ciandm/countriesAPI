@@ -6,7 +6,7 @@ function CountriesGrid({ countries, loading }) {
   return (
     <S.CountriesGrid>
 
-      { countries.map(country => (
+      { countries && countries.map(country => (
         <CountriesCard
           key={country.name}
           image={country.flag}

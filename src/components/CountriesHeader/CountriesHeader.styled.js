@@ -24,7 +24,7 @@ export const CountriesFilters = styled.div`
   justify-content: space-between;
 `
 
-export const CountriesInput = styled.div`
+export const CountriesSearch = styled.form`
   align-items: center;
   color: ${({ theme }) => theme.name === 'light' ? theme.colours.elements : theme.colours.white};
   display: flex;
@@ -35,7 +35,7 @@ export const CountriesInput = styled.div`
     ${elementStyles};
     border-radius: 8px;
     color: inherit;
-    font-size: 14px;
+    font-size: 16px;
     padding: 20px 32px 20px 72px;
     width: 100%;
 
@@ -83,6 +83,10 @@ export const FilterDropdown = styled.ul`
   top: calc(100% + 4px);
   width: 100%;
   padding: 20px;
+
+  & li:hover {
+    color: ${({ theme }) => theme.colours.text};
+  }
 
   & li:not(:last-child) {
     margin-bottom: 12px;

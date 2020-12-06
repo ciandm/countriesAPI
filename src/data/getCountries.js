@@ -1,8 +1,27 @@
 async function getCountries() {
-  const data = await fetch('https://restcountries.eu/rest/v2/all')
-    .then(res => res.json())
+  let error;
+  let data = [];
 
-  return data;
+  try {
+    await fetch('https://restcountries.eu/rest/v2/all')
+      .then(res => {
+        if (res.status === 200) {
+          return res.json()
+        } else {
+          throw new Error('Something went wrong');
+        }
+      })
+      .then(res => {
+        data = res.map(r => r);
+      })
+  } catch (e) {
+    error = 'Something went wrong.';
+  }
+
+  return {
+    error,
+    data
+  }
 }
 
 export default getCountries;

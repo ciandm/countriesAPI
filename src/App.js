@@ -14,12 +14,17 @@ function App() {
   const [theme, setTheme] = useState('light');
   const [countries, setCountries] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     getCountries()
       .then(res => {
-        setCountries(res);
-        setLoading(false);
+        if (res.error) {
+          setError(res.error);
+        } else {
+          setCountries(res.data);
+          setLoading(false);
+        }
       })
   }, [])
 
@@ -42,6 +47,7 @@ function App() {
           countries={countries}
           loading={loading}
         />
+        {error}
       </Countries>
     </ThemeProvider>
   );
