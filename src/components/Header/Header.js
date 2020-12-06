@@ -6,7 +6,9 @@ import {
 import * as S from './Header.styled';
 import { ThemeConsumer } from 'styled-components'
 
-function Header() {
+function Header({
+  handleThemeToggle
+}) {
   return (
     <ThemeConsumer>
       {({ name, theme }) => {
@@ -14,8 +16,9 @@ function Header() {
           <S.Header>
             <S.HeaderContents>
               <h1>Where in the world?</h1>
-              <S.Switcher>
+              <S.Switcher onClick={handleThemeToggle}>
                 {name === 'light' ? <FaRegMoon /> : <FaMoon />}
+                <span>{name} Mode</span>
               </S.Switcher>
             </S.HeaderContents>
           </S.Header>

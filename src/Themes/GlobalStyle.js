@@ -10,6 +10,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    background-color: ${({ theme }) => theme.colours.background};
     font-family: 'Nunito Sans', sans-serif;
   }
 `

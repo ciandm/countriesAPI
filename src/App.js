@@ -8,14 +8,20 @@ function App() {
 
   const [theme, setTheme] = useState('light');
 
+  const ThemeToggler = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  }
+
   return (
     <>
-      <GlobalStyle />
       <ThemeProvider theme={{
         name: theme,
-        theme: theme === 'light' ? LIGHT : DARK
+        colours: theme === 'light' ? LIGHT : DARK
       }}>
-        <Header />
+        <GlobalStyle />
+        <Header
+          handleThemeToggle={ThemeToggler}
+        />
       </ThemeProvider>
     </>
   );
