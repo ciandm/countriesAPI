@@ -13,6 +13,7 @@ export const HeaderContents = styled.div`
   height: 100%;
   justify-content: space-between;
   max-width: 1280px;
+  margin: 0 auto;
 `
 
 export const Switcher = styled.div`
