@@ -1,21 +1,21 @@
-async function getCountries() {
+async function getSearchResult(query) {
   let results = [];
-  let error;
+  let error = null;
 
   try {
-    await fetch('https://restcountries.eu/rest/v2/all')
+    await fetch(`https://restcountries.eu/rest/v2/name/${query}`)
       .then(res => {
         if (res.status === 200) {
           return res.json()
         } else {
-          throw new Error('Something went wrong');
+          throw new Error('Could not be found.')
         }
       })
       .then(res => {
         results = res.map(r => r);
       })
   } catch (e) {
-    error = 'Something went wrong.';
+    throw new Error(e);
   }
 
   return {
@@ -24,4 +24,4 @@ async function getCountries() {
   }
 }
 
-export default getCountries;
+export default getSearchResult;

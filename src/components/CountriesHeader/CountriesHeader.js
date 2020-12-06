@@ -6,7 +6,9 @@ import {
 } from 'react-icons/fa';
 import * as S from './CountriesHeader.styled';
 
-function CountriesHeader() {
+function CountriesHeader({
+  handleSearch
+}) {
 
   const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
   const [input, setInput] = useState('');
@@ -19,6 +21,7 @@ function CountriesHeader() {
 
   function handleSearchSubmit(e) {
     e.preventDefault();
+    handleSearch(input);
   }
 
   function handleRegionSelect(region) {
@@ -41,7 +44,8 @@ function CountriesHeader() {
         </S.CountriesSearch>
         <S.CountriesDropdownFilter
           dropdownShown={dropdownShown}
-          onClick={() => handleDropdownToggle()}>
+          onClick={() => handleDropdownToggle()}
+        >
           Filter by region
           <FaAngleDown
           />
@@ -51,7 +55,8 @@ function CountriesHeader() {
             {regions.map(region => (
               <li
                 key={region}
-                onClick={() => handleRegionSelect(region)}>
+                onClick={() => handleRegionSelect(region)}
+              >
                 {region}
               </li>))}
           </S.FilterDropdown>

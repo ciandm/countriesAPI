@@ -7,6 +7,7 @@ import Header from './components/Header/Header';
 import Countries from './containers/Countries/Countries';
 import CountriesHeader from './components/CountriesHeader/CountriesHeader';
 import CountriesGrid from './components/CountriesGrid/CountriesGrid';
+import getSearchResult from './data/getSearchResult';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
         if (res.error) {
           setError(res.error);
         } else {
-          setCountries(res.data);
+          setCountries(res.results);
           setLoading(false);
         }
       })
@@ -30,6 +31,22 @@ function App() {
 
   const ThemeToggler = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
+  }
+
+  function handleSearch(input) {
+    setLoading(true);
+
+    getSearchResult(input)
+      .then(res => {
+        setCountries(res.results.map(r => r));
+        setError(null);
+        setLoading(false);
+      })
+      .catch(e => {
+        setError(e.message);
+        setCountries([]);
+        setLoading(false);
+      })
   }
 
   return (
@@ -42,7 +59,9 @@ function App() {
         handleThemeToggle={ThemeToggler}
       />
       <Countries>
-        <CountriesHeader />
+        <CountriesHeader
+          handleSearch={handleSearch}
+        />
         <CountriesGrid
           countries={countries}
           loading={loading}
