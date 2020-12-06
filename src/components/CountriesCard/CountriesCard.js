@@ -1,11 +1,40 @@
 import React from 'react'
+import PropTypes from 'prop-types';
+import * as S from './CountriesCard.styled';
 
-function CountriesCard() {
+function CountriesCard({
+  image,
+  name,
+  population,
+  region,
+  capital }) {
+
+  function refactorPopulation(num) {
+    return new Intl.NumberFormat().format(num);
+  }
+
   return (
-    <div>
 
-    </div>
+    <S.CountriesCard>
+      <img src={image} alt={`${name} flag`} />
+      <div>
+        <h2>{name}</h2>
+        <ul>
+          <li><span>Population: </span>{refactorPopulation(population)}</li>
+          <li><span>Region: </span>{region}</li>
+          <li><span>Capital: </span>{capital}</li>
+        </ul>
+      </div>
+    </S.CountriesCard>
   )
+}
+
+CountriesCard.propTypes = {
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  population: PropTypes.number.isRequired,
+  region: PropTypes.string.isRequired,
+  capital: PropTypes.string.isRequired,
 }
 
 export default CountriesCard

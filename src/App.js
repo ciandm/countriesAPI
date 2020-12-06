@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import getCountries from './data/getCountries';
 import GlobalStyle from './Themes/GlobalStyle';
 import { ThemeProvider } from 'styled-components'
 import { LIGHT, DARK } from './Themes/Theme';
@@ -9,7 +10,18 @@ import CountriesGrid from './components/CountriesGrid/CountriesGrid';
 
 function App() {
 
+  // states
   const [theme, setTheme] = useState('light');
+  const [countries, setCountries] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getCountries()
+      .then(res => {
+        setCountries(res);
+        setLoading(false);
+      })
+  }, [])
 
   const ThemeToggler = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
@@ -26,7 +38,10 @@ function App() {
       />
       <Countries>
         <CountriesHeader />
-        <CountriesGrid />
+        <CountriesGrid
+          countries={countries}
+          loading={loading}
+        />
       </Countries>
     </ThemeProvider>
   );
