@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import getCountries from './data/getCountries';
 import GlobalStyle from './Themes/GlobalStyle';
 import { ThemeProvider } from 'styled-components'
@@ -8,45 +8,30 @@ import Countries from './containers/Countries/Countries';
 import CountriesHeader from './components/CountriesHeader/CountriesHeader';
 import CountriesGrid from './components/CountriesGrid/CountriesGrid';
 import getSearchResult from './data/getSearchResult';
+import { useFetchCountries } from './data/useFetchCountries';
 
 function App() {
 
   // states
   const [theme, setTheme] = useState('light');
-  const [countries, setCountries] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [searching, setSearching] = useState({
+    isSearching: false,
+    searchValue: ''
+  });
 
-  useEffect(() => {
-    getCountries()
-      .then(res => {
-        if (res.error) {
-          setError(res.error);
-        } else {
-          setCountries(res.results);
-          setLoading(false);
-        }
-      })
-  }, [])
+  const isComponentMounted = useRef(true);
+
+  const { data: countries, loading, error } = useFetchCountries("/all", isComponentMounted, []);
 
   const ThemeToggler = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   }
 
   function handleSearch(input) {
-    setLoading(true);
-
-    getSearchResult(input)
-      .then(res => {
-        setCountries(res.results.map(r => r));
-        setError(null);
-        setLoading(false);
-      })
-      .catch(e => {
-        setError(e.message);
-        setCountries([]);
-        setLoading(false);
-      })
+    setSearching(prevSearch => ({
+      isSearching: true,
+      searchValue: input
+    }))
   }
 
   return (
@@ -65,6 +50,7 @@ function App() {
         <CountriesGrid
           countries={countries}
           loading={loading}
+          searching={searching}
         />
         {error}
       </Countries>
