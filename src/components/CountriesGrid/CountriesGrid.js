@@ -5,16 +5,26 @@ import * as S from './CountriesGrid.styled';
 function CountriesGrid({
   countries,
   loading,
-  searching
+  searchValue
 }) {
 
-  if (searching.isSearching) {
-    countries = countries.filter(country => {
-      return (
-        country.name.toLowerCase().includes(searching.searchValue.toLowerCase()) || country.altSpellings
-          .includes(searching.searchValue)
-      )
-    })
+  if (searchValue) {
+    console.log('filtering');
+    searchValue = searchValue.toLowerCase()
+
+    countries = countries.filter(filterCountry);
+
+    function filterCountry(country) {
+      if (country.name.toLowerCase().includes(searchValue)) {
+        return true;
+      }
+
+      country.altSpellings.forEach(sp => {
+        if (sp.toLowerCase().includes(searchValue)) {
+          return true;
+        }
+      })
+    }
   }
 
   return (

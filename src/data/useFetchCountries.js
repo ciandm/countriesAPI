@@ -10,10 +10,28 @@ export const useFetchCountries = (query, ref, initialValue) => {
       (async () => {
         try {
           const res = await fetch(`https://restcountries.eu/rest/v2${query}`);
-          const resJson = await res.json();
-          setData(resJson);
+          await res.json()
+            .then(countries => {
+              const slimmedCountries = []
+              countries.forEach(country => {
+                const { name, flag, population, region, capital, altSpellings } = country;
+                const slimmedCountry = {
+                  name,
+                  flag,
+                  population,
+                  region,
+                  capital,
+                  altSpellings
+                }
+                slimmedCountries.push(slimmedCountry);
+              })
+              return slimmedCountries;
+            })
+            .then(res => {
+              setData(res);
+            })
         } catch (err) {
-          setError(err);
+          setError(err.status);
         } finally {
           setLoading(false);
         }

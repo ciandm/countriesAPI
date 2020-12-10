@@ -1,5 +1,4 @@
-import React, { useState, useRef } from 'react';
-import getCountries from './data/getCountries';
+import React, { useEffect, useState, useRef } from 'react';
 import GlobalStyle from './Themes/GlobalStyle';
 import { ThemeProvider } from 'styled-components'
 import { LIGHT, DARK } from './Themes/Theme';
@@ -7,17 +6,13 @@ import Header from './components/Header/Header';
 import Countries from './containers/Countries/Countries';
 import CountriesHeader from './components/CountriesHeader/CountriesHeader';
 import CountriesGrid from './components/CountriesGrid/CountriesGrid';
-import getSearchResult from './data/getSearchResult';
 import { useFetchCountries } from './data/useFetchCountries';
 
 function App() {
 
   // states
   const [theme, setTheme] = useState('light');
-  const [searching, setSearching] = useState({
-    isSearching: false,
-    searchValue: ''
-  });
+  const [searchValue, setSearchValue] = useState('');
 
   const isComponentMounted = useRef(true);
 
@@ -28,10 +23,7 @@ function App() {
   }
 
   function handleSearch(input) {
-    setSearching(prevSearch => ({
-      isSearching: true,
-      searchValue: input
-    }))
+    setSearchValue(input);
   }
 
   return (
@@ -50,7 +42,7 @@ function App() {
         <CountriesGrid
           countries={countries}
           loading={loading}
-          searching={searching}
+          searchValue={searchValue}
         />
         {error}
       </Countries>

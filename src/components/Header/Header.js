@@ -11,7 +11,7 @@ function Header({
 }) {
   return (
     <ThemeConsumer>
-      {({ name, theme }) => {
+      {({ name }) => {
         return (
           <S.Header>
             <S.HeaderContents>
