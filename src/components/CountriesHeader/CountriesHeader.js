@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import {
   FaSearch,
   FaAngleDown,
-  FaArrowLeft
+  FaArrowLeft,
+  FaTimesCircle
 } from 'react-icons/fa';
 import * as S from './CountriesHeader.styled';
 
 function CountriesHeader({
-  handleSearch
+  handleSearch,
+  handleSearchReset
 }) {
 
   const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
@@ -28,11 +30,17 @@ function CountriesHeader({
 
   }
 
+  function handleResetClick() {
+    if (input === '') return;
+    setInput('');
+    handleSearchReset('');
+  }
+
   return (
     <S.CountriesHeader>
       <S.CountriesFilters>
         <S.CountriesSearch onSubmit={(e) => handleSearchSubmit(e)}>
-          <FaSearch />
+          <FaSearch id="search" />
           <input
             type="text"
             name="country"
@@ -41,6 +49,11 @@ function CountriesHeader({
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
+          <S.SearchReset
+            onClick={() => handleResetClick()}
+          >
+            <FaTimesCircle id="reset" />
+          </S.SearchReset>
         </S.CountriesSearch>
         <S.CountriesDropdownFilter
           dropdownShown={dropdownShown}

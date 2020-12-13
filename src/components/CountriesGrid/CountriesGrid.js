@@ -9,7 +9,7 @@ function CountriesGrid({
 }) {
 
   if (searchValue) {
-    console.log('filtering');
+    if (searchValue === '') return;
     searchValue = searchValue.toLowerCase()
 
     countries = countries.filter(filterCountry);
@@ -19,11 +19,15 @@ function CountriesGrid({
         return true;
       }
 
+      let countryIsIncluded = false;
       country.altSpellings.forEach(sp => {
         if (sp.toLowerCase().includes(searchValue)) {
-          return true;
+          return countryIsIncluded = true;
         }
       })
+      if (countryIsIncluded) {
+        return true;
+      }
     }
   }
 

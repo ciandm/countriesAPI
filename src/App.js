@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import GlobalStyle from './Themes/GlobalStyle';
 import { ThemeProvider } from 'styled-components'
 import { LIGHT, DARK } from './Themes/Theme';
@@ -26,6 +26,10 @@ function App() {
     setSearchValue(input);
   }
 
+  function handleSearchReset() {
+    setSearchValue('');
+  }
+
   return (
     <ThemeProvider theme={{
       name: theme,
@@ -38,6 +42,7 @@ function App() {
       <Countries>
         <CountriesHeader
           handleSearch={handleSearch}
+          handleSearchReset={handleSearchReset}
         />
         <CountriesGrid
           countries={countries}

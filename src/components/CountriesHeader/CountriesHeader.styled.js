@@ -36,7 +36,7 @@ export const CountriesSearch = styled.form`
     border-radius: 8px;
     color: inherit;
     font-size: 16px;
-    padding: 20px 32px 20px 72px;
+    padding: 20px 72px;
     width: 100%;
 
     &::placeholder {
@@ -44,10 +44,34 @@ export const CountriesSearch = styled.form`
     }
   }
 
-  & svg {
+  & svg#search {
     color: inherit;
     left: 32px;
     position: absolute;
+  }
+
+`
+
+export const SearchReset = styled.button.attrs(() => ({
+  type: 'button'
+}))`
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  outline: none;
+  position: absolute;
+  padding: 0 16px;
+  right: 0;
+
+  & svg {
+    fill: ${({ theme }) => theme.name === 'light' ? theme.colours.elements : theme.colours.white};
+    height: 16px;
+    width: 16px;
+  }
+
+  &:hover svg {
+    fill: ${({ theme }) => theme.colours.text};
   }
 `
 
