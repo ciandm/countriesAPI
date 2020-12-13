@@ -60,6 +60,7 @@ function App() {
 
   function handleCountryDeselect() {
     setSelectedCountry('');
+    setBorderCountries([]);
   }
 
   return (
