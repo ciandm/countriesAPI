@@ -7,7 +7,10 @@ function CountriesCard({
   name,
   population,
   region,
-  capital }) {
+  capital,
+  country,
+  handleCountrySelect
+}) {
 
   function refactorPopulation(num) {
     return new Intl.NumberFormat().format(num);
@@ -15,7 +18,7 @@ function CountriesCard({
 
   return (
 
-    <S.CountriesCard>
+    <S.CountriesCard onClick={() => handleCountrySelect(country)}>
       <img src={image} alt={`${name} flag`} />
       <div>
         <h2>{name}</h2>

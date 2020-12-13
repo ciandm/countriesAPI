@@ -137,6 +137,7 @@ export const CountriesReturn = styled.button`
   align-items: center;
   border-radius: 8px;
   color: ${({ theme }) => theme.name === 'light' ? theme.colours.elements : theme.colours.white};
+  cursor: pointer;
   display: flex;
   font-size: 16px;
   padding: 20px 40px 20px 32px;

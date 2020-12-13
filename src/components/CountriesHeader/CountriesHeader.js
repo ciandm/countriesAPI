@@ -12,7 +12,8 @@ function CountriesHeader({
   handleSearchReset,
   handleRegionSelect,
   handleRegionReset,
-  region: selectedRegion
+  region: selectedRegion,
+  selectedCountry
 }) {
 
   const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
@@ -37,53 +38,58 @@ function CountriesHeader({
 
   return (
     <S.CountriesHeader>
-      <S.CountriesFilters>
-        <S.CountriesSearch onSubmit={(e) => handleSearchSubmit(e)}>
-          <FaSearch id="search" />
-          <input
-            type="text"
-            name="country"
-            id="country"
-            placeholder="Search for a country..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <S.SearchReset
-            onClick={() => handleResetClick()}
-          >
-            <FaTimesCircle id="reset" />
-          </S.SearchReset>
-        </S.CountriesSearch>
-        {/* Dropdown */}
-        <S.CountriesDropdownFilter
-          dropdownShown={dropdownShown}
-          onMouseEnter={() => handleDropdownToggle(true)}
-          onMouseLeave={() => handleDropdownToggle(false)}
-        >
-          {selectedRegion && selectedRegion}
-          {!selectedRegion && 'Filter by region'}
-          <FaAngleDown id="dropdown" />
-          <S.FilterDropdownContainer>
-            <S.FilterDropdown
-              dropdownShown={dropdownShown}
+      {
+        !selectedCountry &&
+        <S.CountriesFilters>
+          <S.CountriesSearch onSubmit={(e) => handleSearchSubmit(e)}>
+            <FaSearch id="search" />
+            <input
+              type="text"
+              name="country"
+              id="country"
+              placeholder="Search for a country..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <S.SearchReset
+              onClick={() => handleResetClick()}
             >
-              {regions.map(region => (
-                <li
-                  key={region}
-                  onClick={() => handleRegionSelect(region)}
-                >
-                  {region}
-                </li>))}
-              {selectedRegion && <li onClick={() => handleRegionReset()}>Remove filter</li>}
-            </S.FilterDropdown>
-          </S.FilterDropdownContainer>
-        </S.CountriesDropdownFilter>
-        {/* Dropdown ends */}
-      </S.CountriesFilters>
-      <S.CountriesReturn>
-        <FaArrowLeft />
-        Back
-      </S.CountriesReturn>
+              <FaTimesCircle id="reset" />
+            </S.SearchReset>
+          </S.CountriesSearch>
+          {/* Dropdown */}
+          <S.CountriesDropdownFilter
+            dropdownShown={dropdownShown}
+            onMouseEnter={() => handleDropdownToggle(true)}
+            onMouseLeave={() => handleDropdownToggle(false)}
+          >
+            {selectedRegion && selectedRegion}
+            {!selectedRegion && 'Filter by region'}
+            <FaAngleDown id="dropdown" />
+            <S.FilterDropdownContainer>
+              <S.FilterDropdown
+                dropdownShown={dropdownShown}
+              >
+                {regions.map(region => (
+                  <li
+                    key={region}
+                    onClick={() => handleRegionSelect(region)}
+                  >
+                    {region}
+                  </li>))}
+                {selectedRegion && <li onClick={() => handleRegionReset()}>Remove filter</li>}
+              </S.FilterDropdown>
+            </S.FilterDropdownContainer>
+          </S.CountriesDropdownFilter>
+          {/* Dropdown ends */}
+        </S.CountriesFilters>
+      }
+      { selectedCountry &&
+        <S.CountriesReturn>
+          <FaArrowLeft />
+          Back
+        </S.CountriesReturn>
+      }
     </S.CountriesHeader>
   )
 }

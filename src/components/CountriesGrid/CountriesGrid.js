@@ -6,7 +6,8 @@ function CountriesGrid({
   countries,
   loading,
   searchValue,
-  region
+  region,
+  handleCountrySelect
 }) {
 
   if (searchValue) {
@@ -52,6 +53,8 @@ function CountriesGrid({
           population={country.population}
           region={country.region}
           capital={country.capital}
+          country={country}
+          handleCountrySelect={handleCountrySelect}
         />
       ))}
     </S.CountriesGrid>

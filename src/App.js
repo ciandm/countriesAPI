@@ -6,6 +6,7 @@ import Header from './components/Header/Header';
 import Countries from './containers/Countries/Countries';
 import CountriesHeader from './components/CountriesHeader/CountriesHeader';
 import CountriesGrid from './components/CountriesGrid/CountriesGrid';
+import CountryDetailsContainer from './containers/CountryDetails/countryDetailsContainer';
 import { useFetchCountries } from './data/useFetchCountries';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
   const [theme, setTheme] = useState('light');
   const [searchValue, setSearchValue] = useState('');
   const [region, setRegion] = useState('');
+  const [selectedCountry, setSelectedCountry] = useState('');
 
   const isComponentMounted = useRef(true);
 
@@ -39,6 +41,14 @@ function App() {
     setRegion('');
   }
 
+  function handleCountrySelect(country) {
+    setSelectedCountry(country);
+  }
+
+  function handleCountryDeselect() {
+    setSelectedCountry('');
+  }
+
   return (
     <ThemeProvider theme={{
       name: theme,
@@ -55,13 +65,23 @@ function App() {
           handleRegionSelect={handleRegionSelect}
           region={region}
           handleRegionReset={handleRegionReset}
+          selectedCountry={selectedCountry}
+          handleCountryDeselect={handleCountryDeselect}
         />
-        <CountriesGrid
-          countries={countries}
-          loading={loading}
-          searchValue={searchValue}
-          region={region}
-        />
+        {!selectedCountry &&
+          <CountriesGrid
+            countries={countries}
+            loading={loading}
+            searchValue={searchValue}
+            region={region}
+            handleCountrySelect={handleCountrySelect}
+          />
+        }
+        {selectedCountry &&
+          <CountryDetailsContainer
+            country={selectedCountry}
+          />
+        }
         {error}
       </Countries>
     </ThemeProvider>

@@ -11,22 +11,6 @@ export const useFetchCountries = (query, ref, initialValue) => {
         try {
           const res = await fetch(`https://restcountries.eu/rest/v2${query}`);
           await res.json()
-            .then(countries => {
-              const slimmedCountries = []
-              countries.forEach(country => {
-                const { name, flag, population, region, capital, altSpellings } = country;
-                const slimmedCountry = {
-                  name,
-                  flag,
-                  population,
-                  region,
-                  capital,
-                  altSpellings
-                }
-                slimmedCountries.push(slimmedCountry);
-              })
-              return slimmedCountries;
-            })
             .then(res => {
               setData(res);
             })
