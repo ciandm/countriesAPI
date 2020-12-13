@@ -5,10 +5,11 @@ export const Container = styled.div`
   width: 100%;
 `
 
-export const Flag = styled.div`
+export const Flag = styled.img`
   background-color: red;
-  height: 500px;
+  height: 400px;
   margin-right: 120px;
+  object-fit: cover;
   width: 40%;
 `
 
@@ -49,6 +50,7 @@ export const Item = styled.li`
 export const Row = styled.ul`
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   list-style: none;
   margin-top: 84px;
 
@@ -60,7 +62,7 @@ export const Row = styled.ul`
     background-color: ${({ theme }) => theme.colours.cardBackground};
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 8px 24px;
-    margin-right: 8px;
+    margin: 4px;
   }
 
   & li:last-child {

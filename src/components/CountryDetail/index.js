@@ -29,8 +29,8 @@ CountryDetails.Report = function CountryReport({ children, ...restProps }) {
   return <Report {...restProps}>{children}</Report>
 }
 
-CountryDetails.Title = function CountryTitle({ title, ...restProps }) {
-  return <Title {...restProps}>{title}</Title>
+CountryDetails.Title = function CountryTitle({ children, ...restProps }) {
+  return <Title {...restProps}>{children}</Title>
 }
 
 CountryDetails.Columns = function CountryColumns({ children }) {

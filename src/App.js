@@ -16,6 +16,7 @@ function App() {
   const [searchValue, setSearchValue] = useState('');
   const [region, setRegion] = useState('');
   const [selectedCountry, setSelectedCountry] = useState('');
+  const [borderCountries, setBorderCountries] = useState([]);
 
   const isComponentMounted = useRef(true);
 
@@ -43,6 +44,18 @@ function App() {
 
   function handleCountrySelect(country) {
     setSelectedCountry(country);
+    const [borders] = [country.borders];
+    if (borders.length > 0) {
+      const borderCountries = [];
+      borders.forEach(border => {
+        countries.forEach(country => {
+          if (country.alpha3Code === border) {
+            borderCountries.push(country.name);
+          }
+        })
+      })
+      setBorderCountries(borderCountries);
+    }
   }
 
   function handleCountryDeselect() {
@@ -80,6 +93,7 @@ function App() {
         {selectedCountry &&
           <CountryDetailsContainer
             country={selectedCountry}
+            borderCountries={borderCountries}
           />
         }
         {error}

@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types';
 import * as S from './CountriesCard.styled';
+import refactorPopulation from '../../utils/refactorPopulation';
 
 function CountriesCard({
   image,
@@ -11,10 +12,6 @@ function CountriesCard({
   country,
   handleCountrySelect
 }) {
-
-  function refactorPopulation(num) {
-    return new Intl.NumberFormat().format(num);
-  }
 
   return (
 

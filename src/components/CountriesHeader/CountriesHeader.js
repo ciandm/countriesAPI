@@ -13,7 +13,8 @@ function CountriesHeader({
   handleRegionSelect,
   handleRegionReset,
   region: selectedRegion,
-  selectedCountry
+  selectedCountry,
+  handleCountryDeselect
 }) {
 
   const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
@@ -38,6 +39,7 @@ function CountriesHeader({
 
   return (
     <S.CountriesHeader>
+      {/* if no country is selected, show filter options */}
       {
         !selectedCountry &&
         <S.CountriesFilters>
@@ -84,8 +86,9 @@ function CountriesHeader({
           {/* Dropdown ends */}
         </S.CountriesFilters>
       }
+      {/* if a country has been selected, display a return button */}
       { selectedCountry &&
-        <S.CountriesReturn>
+        <S.CountriesReturn onClick={() => handleCountryDeselect()}>
           <FaArrowLeft />
           Back
         </S.CountriesReturn>
