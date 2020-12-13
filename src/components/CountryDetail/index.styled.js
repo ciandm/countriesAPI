@@ -1,16 +1,22 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  display: flex;
+  display: grid;
+  grid-template-columns: 45% 1fr;
+  gap: 120px;
   width: 100%;
+
+  @media screen and (max-width: 900px) {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
 `
 
 export const Flag = styled.img`
   background-color: red;
-  height: 400px;
-  margin-right: 120px;
+  grid-column: 1 / 2;
+  width: 100%;
   object-fit: cover;
-  width: 40%;
 `
 
 export const Report = styled.div`
@@ -25,6 +31,10 @@ export const Title = styled.h1`
 
 export const Columns = styled.div`
   display: flex;
+
+  @media screen and (max-width: 480px) {
+    flex-direction: column;
+  }
 `
 
 export const Column = styled.ul`
@@ -36,6 +46,15 @@ export const Column = styled.ul`
 
    & li + li {
     margin-top: 16px;
+  }
+
+  @media screen and (max-width: 480px) {
+    margin: 0;
+    width: 100%;
+
+    &:last-child {
+      margin-top: 36px;
+    }
   }
 `
 
@@ -67,5 +86,9 @@ export const Row = styled.ul`
 
   & li:last-child {
     margin-right: 0;
+  }
+
+  @media screen and (max-width: 480px) {
+    margin-top: 48px;
   }
 `
