@@ -9,7 +9,10 @@ import * as S from './CountriesHeader.styled';
 
 function CountriesHeader({
   handleSearch,
-  handleSearchReset
+  handleSearchReset,
+  handleRegionSelect,
+  handleRegionReset,
+  region: selectedRegion
 }) {
 
   const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'];
@@ -17,17 +20,13 @@ function CountriesHeader({
   const [dropdownShown, setDropdownShown] = useState(false);
 
 
-  const handleDropdownToggle = () => {
-    setDropdownShown(!dropdownShown);
+  const handleDropdownToggle = (value) => {
+    setDropdownShown(value);
   }
 
   function handleSearchSubmit(e) {
     e.preventDefault();
     handleSearch(input);
-  }
-
-  function handleRegionSelect(region) {
-
   }
 
   function handleResetClick() {
@@ -55,25 +54,31 @@ function CountriesHeader({
             <FaTimesCircle id="reset" />
           </S.SearchReset>
         </S.CountriesSearch>
+        {/* Dropdown */}
         <S.CountriesDropdownFilter
           dropdownShown={dropdownShown}
-          onClick={() => handleDropdownToggle()}
+          onMouseEnter={() => handleDropdownToggle(true)}
+          onMouseLeave={() => handleDropdownToggle(false)}
         >
-          Filter by region
-          <FaAngleDown
-          />
-          <S.FilterDropdown
-            dropdownShown={dropdownShown}
-          >
-            {regions.map(region => (
-              <li
-                key={region}
-                onClick={() => handleRegionSelect(region)}
-              >
-                {region}
-              </li>))}
-          </S.FilterDropdown>
+          {selectedRegion && selectedRegion}
+          {!selectedRegion && 'Filter by region'}
+          <FaAngleDown id="dropdown" />
+          <S.FilterDropdownContainer>
+            <S.FilterDropdown
+              dropdownShown={dropdownShown}
+            >
+              {regions.map(region => (
+                <li
+                  key={region}
+                  onClick={() => handleRegionSelect(region)}
+                >
+                  {region}
+                </li>))}
+              {selectedRegion && <li onClick={() => handleRegionReset()}>Remove filter</li>}
+            </S.FilterDropdown>
+          </S.FilterDropdownContainer>
         </S.CountriesDropdownFilter>
+        {/* Dropdown ends */}
       </S.CountriesFilters>
       <S.CountriesReturn>
         <FaArrowLeft />

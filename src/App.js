@@ -13,6 +13,7 @@ function App() {
   // states
   const [theme, setTheme] = useState('light');
   const [searchValue, setSearchValue] = useState('');
+  const [region, setRegion] = useState('');
 
   const isComponentMounted = useRef(true);
 
@@ -30,6 +31,14 @@ function App() {
     setSearchValue('');
   }
 
+  function handleRegionSelect(region) {
+    setRegion(region);
+  }
+
+  function handleRegionReset() {
+    setRegion('');
+  }
+
   return (
     <ThemeProvider theme={{
       name: theme,
@@ -43,11 +52,15 @@ function App() {
         <CountriesHeader
           handleSearch={handleSearch}
           handleSearchReset={handleSearchReset}
+          handleRegionSelect={handleRegionSelect}
+          region={region}
+          handleRegionReset={handleRegionReset}
         />
         <CountriesGrid
           countries={countries}
           loading={loading}
           searchValue={searchValue}
+          region={region}
         />
         {error}
       </Countries>

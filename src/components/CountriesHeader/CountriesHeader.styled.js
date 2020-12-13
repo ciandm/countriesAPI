@@ -82,11 +82,21 @@ export const CountriesDropdownFilter = styled.div`
   color: ${({ theme }) => theme.name === 'light' ? theme.colours.elements : theme.colours.white};
   cursor: pointer;
   display: flex;
+  justify-content: space-between;
   padding: 20px 24px 20px 20px;
   position: relative;
+  width: 200px;
 
-  & svg {
-    margin-left: 48px;
+  & .region {
+    align-items: center;
+    display: flex;
+    
+    & svg {
+      margin-right: 4px;
+    }
+  }
+
+  & svg#dropdown {
     transition: transform 0.2s ease-in-out;
     transform: ${({ dropdownShown }) => dropdownShown === true ? 'rotate(180deg)' : ''};
   }
@@ -96,15 +106,20 @@ export const CountriesDropdownFilter = styled.div`
   }
 `
 
+export const FilterDropdownContainer = styled.div`
+  left: 0;
+  position: absolute;
+  top: 100%;
+  width: 100%;
+`
+
 export const FilterDropdown = styled.ul`
   ${elementStyles};
   display: ${({ dropdownShown }) => dropdownShown === true ? 'flex' : 'none'};
   flex-direction: column;
   border-radius: 8px;
   list-style: none;
-  left: 0;
-  position: absolute;
-  top: calc(100% + 4px);
+  margin-top: 4px;
   width: 100%;
   padding: 20px;
 

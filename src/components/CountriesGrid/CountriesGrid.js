@@ -5,7 +5,8 @@ import * as S from './CountriesGrid.styled';
 function CountriesGrid({
   countries,
   loading,
-  searchValue
+  searchValue,
+  region
 }) {
 
   if (searchValue) {
@@ -26,6 +27,16 @@ function CountriesGrid({
         }
       })
       if (countryIsIncluded) {
+        return true;
+      }
+    }
+  }
+
+  if (region) {
+    countries = countries.filter(filterByRegion);
+
+    function filterByRegion(country) {
+      if (country.region === region) {
         return true;
       }
     }
